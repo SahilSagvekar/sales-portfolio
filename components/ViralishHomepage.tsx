@@ -5,7 +5,7 @@ import { useEffect, useRef, useState } from "react";
 // ─── Types ────────────────────────────────────────────────────────────────────
 interface ReelData {
   vimeoId: string;
-  previewSrc: string;
+  // previewSrc: string;
   views: string;
   likes: string;
   comments: string;
@@ -60,11 +60,11 @@ function VideoCard({ views, likes, comments, vimeoId }: { views: string; likes: 
   return (
     <div className="video-card">
       <div className="video-thumb">
-        <iframe
-          src={`https://player.vimeo.com/video/${vimeoId}?autopause=0&loop=0&muted=0&title=0&portrait=0&byline=0`}
-          frameBorder="0" allow="autoplay; fullscreen; picture-in-picture" allowFullScreen
-          style={{ width: "100%", height: "100%", position: "absolute", top: 0, left: 0 }}
-        />
+      <video
+  src="https://pub-aba1844bd21f4ec0b72735c6f51f94c9.r2.dev/portfolio/uploads/6_v1%20(1080p).mp4"
+  autoPlay muted loop playsInline
+  style={{ width: "100%", height: "100%", objectFit: "cover", position: "absolute", top: 0, left: 0 }}
+/>
       </div>
       <div className="video-stats">
         <div className="vstat"><span className="vstat-num">{views}</span><span className="vstat-lbl">Views</span></div>
@@ -89,11 +89,11 @@ function ReelModal({ reel, onClose }: { reel: ReelData; onClose: () => void }) {
       <div className="reel-modal" onClick={e => e.stopPropagation()}>
         <button className="reel-modal-close" onClick={onClose}>✕</button>
         <div className="reel-modal-video-wrap">
-          <iframe
-            src={`https://player.vimeo.com/video/${reel.vimeoId}?autoplay=1&title=0&portrait=0&byline=0`}
-            frameBorder="0" allow="autoplay; fullscreen; picture-in-picture" allowFullScreen
-            style={{ width: "100%", height: "100%", position: "absolute", top: 0, left: 0, borderRadius: "16px 16px 0 0" }}
-          />
+        <video
+  src="https://pub-aba1844bd21f4ec0b72735c6f51f94c9.r2.dev/portfolio/uploads/6_v1%20(1080p).mp4"
+  autoPlay muted loop playsInline
+  style={{ width: "100%", height: "100%", objectFit: "cover", position: "absolute", top: 0, left: 0 }}
+/>
         </div>
         <div className="reel-modal-stats">
           <div className="reel-modal-stat"><span className="reel-modal-stat-num">{reel.views}</span><span className="reel-modal-stat-lbl">Views</span></div>
@@ -106,8 +106,32 @@ function ReelModal({ reel, onClose }: { reel: ReelData; onClose: () => void }) {
 }
 
 // ─── Hero Reel Card ───────────────────────────────────────────────────────────
-function HeroReelCard({ reel, index, isCenter, onClick }: { reel: ReelData; index: number; isCenter?: boolean; onClick: () => void }) {
-  // Arch: [0, -40, -80, -40, 0] — positive = lower, so we use marginBottom to lift
+// function HeroReelCard({ reel, index, isCenter, onClick }: { reel: ReelData; index: number; isCenter?: boolean; onClick: () => void }) {
+//   // Arch: [0, -40, -80, -40, 0] — positive = lower, so we use marginBottom to lift
+//   const lifts = [0, 40, 80, 40, 0];
+//   const lift = lifts[index] ?? 0;
+
+//   return (
+//     <div
+//       className={isCenter ? "reel-card reel-card--center" : "reel-card"}
+//       onClick={onClick}
+//       style={{ cursor: "pointer", marginBottom: lift }}
+//     >
+//       <video
+//         src={reel.previewSrc}
+//         autoPlay muted loop playsInline
+//         style={{ width: "100%", height: "100%", objectFit: "cover", position: "absolute", top: 0, left: 0 }}
+//       />
+//       <div className="reel-card-overlay">
+//         <div className="reel-play-btn">▶</div>
+//       </div>
+//     </div>
+//   );
+// }
+
+function HeroReelCard({ reel, index, isCenter, onClick }: { 
+  reel: ReelData; index: number; isCenter?: boolean; onClick: () => void 
+}) {
   const lifts = [0, 40, 80, 40, 0];
   const lift = lifts[index] ?? 0;
 
@@ -117,11 +141,11 @@ function HeroReelCard({ reel, index, isCenter, onClick }: { reel: ReelData; inde
       onClick={onClick}
       style={{ cursor: "pointer", marginBottom: lift }}
     >
-      <video
-        src={reel.previewSrc}
-        autoPlay muted loop playsInline
-        style={{ width: "100%", height: "100%", objectFit: "cover", position: "absolute", top: 0, left: 0 }}
-      />
+    <video
+  src="https://pub-aba1844bd21f4ec0b72735c6f51f94c9.r2.dev/portfolio/uploads/6_v1%20(1080p).mp4"
+  autoPlay muted loop playsInline
+  style={{ width: "100%", height: "100%", objectFit: "cover", position: "absolute", top: 0, left: 0 }}
+/>
       <div className="reel-card-overlay">
         <div className="reel-play-btn">▶</div>
       </div>
@@ -134,11 +158,11 @@ function TestimonialCard({ name, vimeoId }: { name: string; vimeoId: string }) {
   return (
     <div className="testimonial-card">
       <div className="testimonial-video">
-        <iframe
-          src={`https://player.vimeo.com/video/${vimeoId}?autopause=0&loop=0&muted=0&title=0&portrait=0&byline=0`}
-          frameBorder="0" allow="autoplay; fullscreen; picture-in-picture" allowFullScreen
-          style={{ width: "100%", height: "100%", position: "absolute", top: 0, left: 0 }}
-        />
+        <video
+  src="https://pub-aba1844bd21f4ec0b72735c6f51f94c9.r2.dev/portfolio/uploads/6_v1%20(1080p).mp4"
+  autoPlay muted loop playsInline
+  style={{ width: "100%", height: "100%", objectFit: "cover", position: "absolute", top: 0, left: 0 }}
+/>
       </div>
       <p className="testimonial-name">— {name}</p>
     </div>
@@ -151,14 +175,21 @@ export default function ViralishHomepage({ name = "Kriszy Garcia" }: { name?: st
   const [activeReel, setActiveReel] = useState<ReelData | null>(null);
   const statsRef = useRef<HTMLDivElement>(null);
 
-  const reels: ReelData[] = [
-    { vimeoId: "1012531485", previewSrc: "/videos/reel1-preview.mp4", views: "102M+", likes: "540k+",  comments: "6,400+" },
-    { vimeoId: "1012531485", previewSrc: "/videos/reel1-preview.mp4", views: "85M+",  likes: "1.2M+",  comments: "18K+"   },
-    { vimeoId: "1012531485", previewSrc: "/videos/reel1-preview.mp4", views: "200M+", likes: "4M+",    comments: "42K+"   },
-    { vimeoId: "1012531485", previewSrc: "/videos/reel1-preview.mp4", views: "45M+",  likes: "800K+",  comments: "9K+"    },
-    { vimeoId: "1012531485", previewSrc: "/videos/reel1-preview.mp4", views: "30M+",  likes: "550K+",  comments: "5K+"    },
-  ];
+  // const reels: ReelData[] = [
+  //   { vimeoId: "1012531485", previewSrc: "/videos/reel1-preview.mp4", views: "102M+", likes: "540k+",  comments: "6,400+" },
+  //   { vimeoId: "1012531485", previewSrc: "/videos/reel1-preview.mp4", views: "85M+",  likes: "1.2M+",  comments: "18K+"   },
+  //   { vimeoId: "1012531485", previewSrc: "/videos/reel1-preview.mp4", views: "200M+", likes: "4M+",    comments: "42K+"   },
+  //   { vimeoId: "1012531485", previewSrc: "/videos/reel1-preview.mp4", views: "45M+",  likes: "800K+",  comments: "9K+"    },
+  //   { vimeoId: "1012531485", previewSrc: "/videos/reel1-preview.mp4", views: "30M+",  likes: "550K+",  comments: "5K+"    },
+  // ];
 
+  const reels: ReelData[] = [
+  { vimeoId: "1012531485", views: "102M+", likes: "540k+",  comments: "6,400+" },
+  { vimeoId: "1012545932", views: "85M+",  likes: "1.2M+",  comments: "18K+"   },
+  { vimeoId: "1012529646", views: "200M+", likes: "4M+",    comments: "42K+"   },
+  { vimeoId: "1012530227", views: "45M+",  likes: "800K+",  comments: "9K+"    },
+  { vimeoId: "1012546265", views: "30M+",  likes: "550K+",  comments: "5K+"    },
+];
   return (
     <>
       <style>{`
@@ -550,10 +581,21 @@ export default function ViralishHomepage({ name = "Kriszy Garcia" }: { name?: st
         </div>
         <div className="services-cards">
           <div className="service-video-card"
-            onClick={() => setActiveReel({ vimeoId: "1012531485", previewSrc: "/videos/reel1-preview.mp4", views: "102M+", likes: "540k+", comments: "6,400+" })}>
+            onClick={() => setActiveReel({ vimeoId: "1012531485", 
+            // previewSrc: "/videos/reel1-preview.mp4", 
+            views: "102M+", likes: "540k+", comments: "6,400+" })}>
             <div className="service-video-bg">
-              <video src="/videos/reel1-preview.mp4" autoPlay muted loop playsInline style={{ width: "100%", height: "100%", objectFit: "cover", position: "absolute", top: 0, left: 0 }} />
-              <div className="service-video-overlay" />
+              {/* <video src="/videos/reel1-preview.mp4" autoPlay muted loop playsInline style={{ width: "100%", height: "100%", objectFit: "cover", position: "absolute", top: 0, left: 0 }} /> */}
+              
+<video
+  src="https://pub-aba1844bd21f4ec0b72735c6f51f94c9.r2.dev/portfolio/uploads/6_v1%20(1080p).mp4"
+  autoPlay muted loop playsInline
+  style={{ width: "100%", height: "100%", objectFit: "cover", position: "absolute", top: 0, left: 0 }}
+/>
+
+
+
+<div className="service-video-overlay" />
               <div className="service-card-play"><div className="reel-play-btn">▶</div></div>
             </div>
             <div className="service-video-content">
@@ -565,9 +607,17 @@ export default function ViralishHomepage({ name = "Kriszy Garcia" }: { name?: st
             </div>
           </div>
           <div className="service-video-card"
-            onClick={() => setActiveReel({ vimeoId: "1012531485", previewSrc: "/videos/reel1-preview.mp4", views: "85M+", likes: "1.2M+", comments: "18K+" })}>
+            onClick={() => setActiveReel({ vimeoId: "1012531485", 
+            // previewSrc: "/videos/reel1-preview.mp4", 
+            views: "85M+", likes: "1.2M+", comments: "18K+" })}>
             <div className="service-video-bg">
-              <video src="/videos/reel1-preview.mp4" autoPlay muted loop playsInline style={{ width: "100%", height: "100%", objectFit: "cover", position: "absolute", top: 0, left: 0 }} />
+              {/* <video src="/videos/reel1-preview.mp4" autoPlay muted loop playsInline style={{ width: "100%", height: "100%", objectFit: "cover", position: "absolute", top: 0, left: 0 }} /> */}
+              
+            <video
+  src="https://pub-aba1844bd21f4ec0b72735c6f51f94c9.r2.dev/portfolio/uploads/6_v1%20(1080p).mp4"
+  autoPlay muted loop playsInline
+  style={{ width: "100%", height: "100%", objectFit: "cover", position: "absolute", top: 0, left: 0 }}
+/>
               <div className="service-video-overlay" />
               <div className="service-card-play"><div className="reel-play-btn">▶</div></div>
             </div>
