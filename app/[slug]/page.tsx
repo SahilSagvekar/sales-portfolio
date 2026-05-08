@@ -2,12 +2,16 @@ import { profiles } from "@/lib/profiles";
 import ViralishHomepage from "@/components/ViralishHomepage";
 import { notFound } from "next/navigation";
 
-export default function ProfilePage({ params }: { params: { slug: string } }) {
-  const profile = profiles[params.slug];
-  if (!profile) return notFound();
-  return <ViralishHomepage name={profile.name} />;
-}
+// export default function ProfilePage({ params }: { params: { slug: string } }) {
+//   const profile = profiles[params.slug];
+//   if (!profile) return notFound();
+//   return <ViralishHomepage name={profile.name} />;
+// }
 
-export function generateStaticParams() {
-  return Object.keys(profiles).map(slug => ({ slug }));
+// export function generateStaticParams() {
+//   return Object.keys(profiles).map(slug => ({ slug }));
+// }
+
+export default function ProfilePage({ params }: { params: { slug: string } }) {
+  return <div style={{ color: "white", padding: 40, fontSize: 32 }}>Slug is: {params.slug}</div>;
 }
