@@ -524,13 +524,14 @@ export default function ViralishHomepage({ name = "Kriszy Garcia" }: { name?: st
           {/* Service Card 1 — replace videoSrc with your R2 URL */}
           <div className="service-video-card"
             onClick={() => setActiveReel({
-              previewSrc: `${R2}/service1-preview.mp4`,
-              videoSrc: `${R2}/service1-full.MP4`,
+              previewSrc: `${R2}/LF/preview1.mp4`,
+              videoSrc: `${R2}/LF/Edit 1 - revised.mp4`,
+              // videoSrc: `https://drive.google.com/file/d/1GuwyoQAWT6hilEIauI7CCMt9357Nihl6/view?usp=sharing`,
               views: "102M+", likes: "540k+", comments: "6,400+"
             })}>
             <div className="service-video-bg">
               <video
-                src={`${R2}/service1-preview.mp4`}
+                src={`${R2}/LF/preview1.mp4`}
                 autoPlay muted loop playsInline
                 style={{ width: "100%", height: "100%", objectFit: "cover", position: "absolute", top: 0, left: 0 }}
               />
