@@ -63,6 +63,7 @@ function VideoCard({ views, likes, comments, videoSrc }: { views: string; likes:
         <video
           src={videoSrc}
           controls
+          controlsList="nodownload"
           style={{ width: "100%", height: "100%", position: "absolute", top: 0, left: 0, objectFit: "cover" }}
         />
       </div>
@@ -93,6 +94,7 @@ function ReelModal({ reel, onClose }: { reel: ReelData; onClose: () => void }) {
             src={reel.videoSrc}
             controls
             autoPlay
+            controlsList="nodownload"
             style={{ width: "100%", height: "100%", position: "absolute", top: 0, left: 0, objectFit: "cover", borderRadius: "16px 16px 0 0" }}
           />
         </div>
@@ -122,6 +124,7 @@ function HeroReelCard({ reel, index, isCenter, onClick }: {
       <video
         src={reel.previewSrc}
         autoPlay muted loop playsInline
+        controlsList="nodownload"
         style={{ width: "100%", height: "100%", objectFit: "cover", position: "absolute", top: 0, left: 0 }}
       />
       <div className="reel-card-overlay">
@@ -139,6 +142,7 @@ function TestimonialCard({ name, videoSrc }: { name: string; videoSrc: string })
         <video
           src={videoSrc}
           controls
+          controlsList="nodownload"
           style={{ width: "100%", height: "100%", position: "absolute", top: 0, left: 0, objectFit: "cover" }}
         />
       </div>
@@ -183,7 +187,7 @@ export default function ViralishHomepage({ name = "Kriszy Garcia" }: { name?: st
     },
     {
       previewSrc: `${R2}/preview5.mp4`,
-      videoSrc:   `${R2}/video5.MP4`,
+      videoSrc:   `${R2}/video5.mp4`,
       views: "30M+", likes: "550K+", comments: "5K+"
     },
   ];
@@ -262,11 +266,24 @@ export default function ViralishHomepage({ name = "Kriszy Garcia" }: { name?: st
         /* ── REEL MODAL ── */
         .reel-modal-backdrop { position: fixed; inset: 0; background: rgba(0,0,0,0.85); z-index: 1000; display: flex; align-items: center; justify-content: center; backdrop-filter: blur(8px); animation: fadeIn 0.2s ease; }
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-        .reel-modal { width: min(380px, 92vw); background: #111; border-radius: 20px; overflow: hidden; box-shadow: 0 40px 120px rgba(0,0,0,0.9); animation: slideUp 0.28s cubic-bezier(0.34,1.56,0.64,1); position: relative; }
+        .reel-modal {
+  width: min(860px, 95vw);   /* ← wider */
+  background: #111;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 40px 120px rgba(0,0,0,0.9);
+  animation: slideUp 0.28s cubic-bezier(0.34,1.56,0.64,1);
+  position: relative;
+}
         @keyframes slideUp { from { opacity: 0; transform: translateY(40px) scale(0.95); } to { opacity: 1; transform: translateY(0) scale(1); } }
         .reel-modal-close { position: absolute; top: 12px; right: 12px; z-index: 10; width: 36px; height: 36px; border-radius: 50%; background: rgba(232,0,11,0.9); color: white; border: none; font-size: 16px; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: background 0.2s; }
         .reel-modal-close:hover { background: #ff1a24; }
-        .reel-modal-video-wrap { position: relative; width: 100%; aspect-ratio: 7/11; background: #000; }
+        .reel-modal-video-wrap {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16/9;   /* ← horizontal */
+  background: #000;
+}
         .reel-modal-stats { display: grid; grid-template-columns: repeat(3, 1fr); padding: 20px 0; border-top: 1px solid rgba(255,255,255,0.08); background: #111; }
         .reel-modal-stat { display: flex; flex-direction: column; align-items: center; gap: 4px; border-right: 1px solid rgba(255,255,255,0.07); }
         .reel-modal-stat:last-child { border-right: none; }
@@ -533,6 +550,7 @@ export default function ViralishHomepage({ name = "Kriszy Garcia" }: { name?: st
             <div className="service-video-bg">
               <video
                 src={`${R2}/LF/preview1.mp4`}
+                controlsList="nodownload"
                 autoPlay muted loop playsInline
                 style={{ width: "100%", height: "100%", objectFit: "cover", position: "absolute", top: 0, left: 0 }}
               />
@@ -549,13 +567,14 @@ export default function ViralishHomepage({ name = "Kriszy Garcia" }: { name?: st
           {/* Service Card 2 — replace videoSrc with your R2 URL */}
           <div className="service-video-card"
             onClick={() => setActiveReel({
-              previewSrc: `${R2}/service2-preview.mp4`,
-              videoSrc: `${R2}/service2-full.MP4`,
+              previewSrc: `${R2}LF/preview2.mp4`,
+              videoSrc: `${R2}/LF/video2.mp4`,
               views: "85M+", likes: "1.2M+", comments: "18K+"
             })}>
             <div className="service-video-bg">
               <video
-                src={`${R2}/service2-preview.mp4`}
+                src={`${R2}/LF/preview2.mp4`}
+                controlsList="nodownload"
                 autoPlay muted loop playsInline
                 style={{ width: "100%", height: "100%", objectFit: "cover", position: "absolute", top: 0, left: 0 }}
               />
