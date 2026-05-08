@@ -451,11 +451,11 @@ export default function ViralishHomepage({ name = "Kriszy Garcia" }: { name?: st
             </span>
           </div>
           <div className="hero-ctas">
-            <a href="#services" className="btn-hero-red">
+            <a href="https://calendly.com/e8llc/eric-davis-introduction-meeting" className="btn-hero-red">
               <span className="btn-hero-red-main">Work With Me</span>
               <span className="btn-hero-red-sub">For Entrepreneurs or Big Brands</span>
             </a>
-            <a href="#" className="btn-hero-dark">
+            <a href="https://calendly.com/e8llc/eric-davis-introduction-meeting" className="btn-hero-dark">
               <span className="btn-hero-dark-main">Book A Meeting</span>
               <span className="btn-hero-dark-sub">With Me</span>
             </a>
@@ -518,7 +518,7 @@ export default function ViralishHomepage({ name = "Kriszy Garcia" }: { name?: st
             </h2>
             <p className="services-subtitle">Work With Me To Harness The Power Of Viral Videos</p>
           </div>
-          <a href="#" className="btn-services-cta">Work With Me</a>
+          <a href="https://calendly.com/e8llc/eric-davis-introduction-meeting" className="btn-services-cta">Work With Me</a>
         </div>
         <div className="services-cards">
           {/* Service Card 1 — replace videoSrc with your R2 URL */}
@@ -540,7 +540,7 @@ export default function ViralishHomepage({ name = "Kriszy Garcia" }: { name?: st
             <div className="service-video-content">
               <h3 className="service-video-title">FOR ENTREPRENEURS</h3>
               <p className="service-video-desc">I help your brand get more attention so you can get more sales.</p>
-              <a href="#" className="btn-service-video" onClick={e => e.stopPropagation()}>Book Meeting With Me</a>
+              <a href="https://calendly.com/e8llc/eric-davis-introduction-meeting" className="btn-service-video" onClick={e => e.stopPropagation()}>Book Meeting With Me</a>
             </div>
           </div>
 
@@ -563,7 +563,7 @@ export default function ViralishHomepage({ name = "Kriszy Garcia" }: { name?: st
             <div className="service-video-content">
               <h3 className="service-video-title">FOR BIG BRANDS</h3>
               <p className="service-video-desc">I integrate <strong>Big Brands</strong> into cultural relevance at scale.</p>
-              <a href="#" className="btn-service-video" onClick={e => e.stopPropagation()}>Work With Me</a>
+              <a href="https://calendly.com/e8llc/eric-davis-introduction-meeting" className="btn-service-video" onClick={e => e.stopPropagation()}>Work With Me</a>
             </div>
           </div>
         </div>
