@@ -4,8 +4,8 @@ import { useEffect, useRef, useState } from "react";
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 interface ReelData {
-  vimeoId: string;
-  // previewSrc: string;
+  previewSrc: string;   // R2 URL — muted loop on card
+  videoSrc: string;     // R2 URL — full video in modal
   views: string;
   likes: string;
   comments: string;
@@ -56,21 +56,21 @@ function StatCounter({ value, label, suffix = "+" }: { value: number; label: str
 }
 
 // ─── Video Card ───────────────────────────────────────────────────────────────
-function VideoCard({ views, likes, comments, vimeoId }: { views: string; likes: string; comments: string; vimeoId: string }) {
+function VideoCard({ views, likes, comments, videoSrc }: { views: string; likes: string; comments: string; videoSrc: string }) {
   return (
     <div className="video-card">
       <div className="video-thumb">
-      <video
-  src="https://pub-aba1844bd21f4ec0b72735c6f51f94c9.r2.dev/portfolio/uploads/6_v1%20(1080p).mp4"
-  autoPlay muted loop playsInline
-  style={{ width: "100%", height: "100%", objectFit: "cover", position: "absolute", top: 0, left: 0 }}
-/>
+        <video
+          src={videoSrc}
+          controls
+          style={{ width: "100%", height: "100%", position: "absolute", top: 0, left: 0, objectFit: "cover" }}
+        />
       </div>
-      <div className="video-stats">
+      {/* <div className="video-stats">
         <div className="vstat"><span className="vstat-num">{views}</span><span className="vstat-lbl">Views</span></div>
         <div className="vstat"><span className="vstat-num">{likes}</span><span className="vstat-lbl">Likes</span></div>
         <div className="vstat"><span className="vstat-num">{comments}</span><span className="vstat-lbl">Comments</span></div>
-      </div>
+      </div> */}
     </div>
   );
 }
@@ -89,48 +89,26 @@ function ReelModal({ reel, onClose }: { reel: ReelData; onClose: () => void }) {
       <div className="reel-modal" onClick={e => e.stopPropagation()}>
         <button className="reel-modal-close" onClick={onClose}>✕</button>
         <div className="reel-modal-video-wrap">
-        <video
-  src="https://pub-aba1844bd21f4ec0b72735c6f51f94c9.r2.dev/portfolio/uploads/6_v1%20(1080p).mp4"
-  autoPlay muted loop playsInline
-  style={{ width: "100%", height: "100%", objectFit: "cover", position: "absolute", top: 0, left: 0 }}
-/>
+          <video
+            src={reel.videoSrc}
+            controls
+            autoPlay
+            style={{ width: "100%", height: "100%", position: "absolute", top: 0, left: 0, objectFit: "cover", borderRadius: "16px 16px 0 0" }}
+          />
         </div>
-        <div className="reel-modal-stats">
+        {/* <div className="reel-modal-stats">
           <div className="reel-modal-stat"><span className="reel-modal-stat-num">{reel.views}</span><span className="reel-modal-stat-lbl">Views</span></div>
           <div className="reel-modal-stat"><span className="reel-modal-stat-num">{reel.likes}</span><span className="reel-modal-stat-lbl">Likes</span></div>
           <div className="reel-modal-stat"><span className="reel-modal-stat-num">{reel.comments}</span><span className="reel-modal-stat-lbl">Comments</span></div>
-        </div>
+        </div> */}
       </div>
     </div>
   );
 }
 
 // ─── Hero Reel Card ───────────────────────────────────────────────────────────
-// function HeroReelCard({ reel, index, isCenter, onClick }: { reel: ReelData; index: number; isCenter?: boolean; onClick: () => void }) {
-//   // Arch: [0, -40, -80, -40, 0] — positive = lower, so we use marginBottom to lift
-//   const lifts = [0, 40, 80, 40, 0];
-//   const lift = lifts[index] ?? 0;
-
-//   return (
-//     <div
-//       className={isCenter ? "reel-card reel-card--center" : "reel-card"}
-//       onClick={onClick}
-//       style={{ cursor: "pointer", marginBottom: lift }}
-//     >
-//       <video
-//         src={reel.previewSrc}
-//         autoPlay muted loop playsInline
-//         style={{ width: "100%", height: "100%", objectFit: "cover", position: "absolute", top: 0, left: 0 }}
-//       />
-//       <div className="reel-card-overlay">
-//         <div className="reel-play-btn">▶</div>
-//       </div>
-//     </div>
-//   );
-// }
-
-function HeroReelCard({ reel, index, isCenter, onClick }: { 
-  reel: ReelData; index: number; isCenter?: boolean; onClick: () => void 
+function HeroReelCard({ reel, index, isCenter, onClick }: {
+  reel: ReelData; index: number; isCenter?: boolean; onClick: () => void
 }) {
   const lifts = [0, 40, 80, 40, 0];
   const lift = lifts[index] ?? 0;
@@ -141,11 +119,11 @@ function HeroReelCard({ reel, index, isCenter, onClick }: {
       onClick={onClick}
       style={{ cursor: "pointer", marginBottom: lift }}
     >
-    <video
-  src="https://pub-aba1844bd21f4ec0b72735c6f51f94c9.r2.dev/portfolio/uploads/6_v1%20(1080p).mp4"
-  autoPlay muted loop playsInline
-  style={{ width: "100%", height: "100%", objectFit: "cover", position: "absolute", top: 0, left: 0 }}
-/>
+      <video
+        src={reel.previewSrc}
+        autoPlay muted loop playsInline
+        style={{ width: "100%", height: "100%", objectFit: "cover", position: "absolute", top: 0, left: 0 }}
+      />
       <div className="reel-card-overlay">
         <div className="reel-play-btn">▶</div>
       </div>
@@ -154,20 +132,23 @@ function HeroReelCard({ reel, index, isCenter, onClick }: {
 }
 
 // ─── Testimonial Card ─────────────────────────────────────────────────────────
-function TestimonialCard({ name, vimeoId }: { name: string; vimeoId: string }) {
+function TestimonialCard({ name, videoSrc }: { name: string; videoSrc: string }) {
   return (
     <div className="testimonial-card">
       <div className="testimonial-video">
         <video
-  src="https://pub-aba1844bd21f4ec0b72735c6f51f94c9.r2.dev/portfolio/uploads/6_v1%20(1080p).mp4"
-  autoPlay muted loop playsInline
-  style={{ width: "100%", height: "100%", objectFit: "cover", position: "absolute", top: 0, left: 0 }}
-/>
+          src={videoSrc}
+          controls
+          style={{ width: "100%", height: "100%", position: "absolute", top: 0, left: 0, objectFit: "cover" }}
+        />
       </div>
       <p className="testimonial-name">— {name}</p>
     </div>
   );
 }
+
+// ─── R2 Base URL ──────────────────────────────────────────────────────────────
+const R2 = "https://pub-aba1844bd21f4ec0b72735c6f51f94c9.r2.dev/portfolio/uploads";
 
 // ─── Main Page ────────────────────────────────────────────────────────────────
 export default function ViralishHomepage({ name = "Kriszy Garcia" }: { name?: string }) {
@@ -175,21 +156,38 @@ export default function ViralishHomepage({ name = "Kriszy Garcia" }: { name?: st
   const [activeReel, setActiveReel] = useState<ReelData | null>(null);
   const statsRef = useRef<HTMLDivElement>(null);
 
-  // const reels: ReelData[] = [
-  //   { vimeoId: "1012531485", previewSrc: "/videos/reel1-preview.mp4", views: "102M+", likes: "540k+",  comments: "6,400+" },
-  //   { vimeoId: "1012531485", previewSrc: "/videos/reel1-preview.mp4", views: "85M+",  likes: "1.2M+",  comments: "18K+"   },
-  //   { vimeoId: "1012531485", previewSrc: "/videos/reel1-preview.mp4", views: "200M+", likes: "4M+",    comments: "42K+"   },
-  //   { vimeoId: "1012531485", previewSrc: "/videos/reel1-preview.mp4", views: "45M+",  likes: "800K+",  comments: "9K+"    },
-  //   { vimeoId: "1012531485", previewSrc: "/videos/reel1-preview.mp4", views: "30M+",  likes: "550K+",  comments: "5K+"    },
-  // ];
-
+  // ── Reel carousel — 5 cards
+  // previewSrc = short muted clip shown on card
+  // videoSrc   = full video shown in modal when clicked
+  // Replace filenames with your actual R2 filenames
   const reels: ReelData[] = [
-  { vimeoId: "1012531485", views: "102M+", likes: "540k+",  comments: "6,400+" },
-  { vimeoId: "1012545932", views: "85M+",  likes: "1.2M+",  comments: "18K+"   },
-  { vimeoId: "1012529646", views: "200M+", likes: "4M+",    comments: "42K+"   },
-  { vimeoId: "1012530227", views: "45M+",  likes: "800K+",  comments: "9K+"    },
-  { vimeoId: "1012546265", views: "30M+",  likes: "550K+",  comments: "5K+"    },
-];
+    {
+      previewSrc: `${R2}/preview2.mp4`,
+      videoSrc:   `${R2}/E8Inc_04-06-2026_SF5.MP4`,
+      views: "102M+", likes: "540k+", comments: "6,400+"
+    },
+    {
+      previewSrc: `${R2}/preview1.mp4`,
+      videoSrc:   `${R2}/E8Inc_05-01-2026_SF1 (1).MP4`,
+      views: "85M+", likes: "1.2M+", comments: "18K+"
+    },
+    {
+      previewSrc: `${R2}/preview3.mp4`,
+      videoSrc:   `${R2}/video3.mp4`,
+      views: "200M+", likes: "4M+", comments: "42K+"
+    },
+    {
+      previewSrc: `${R2}/preview4.mp4`,
+      videoSrc:   `${R2}/video4.MP4`,
+      views: "45M+", likes: "800K+", comments: "9K+"
+    },
+    {
+      previewSrc: `${R2}/preview5.mp4`,
+      videoSrc:   `${R2}/video5.MP4`,
+      views: "30M+", likes: "550K+", comments: "5K+"
+    },
+  ];
+
   return (
     <>
       <style>{`
@@ -205,7 +203,7 @@ export default function ViralishHomepage({ name = "Kriszy Garcia" }: { name?: st
 
         /* ── NAVBAR ── */
         .navbar { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; align-items: center; justify-content: space-between; padding: 18px 48px; background: transparent; }
-        .nav-logo { display: flex; align-items: center; text-decoration: none; }
+        .nav-logo { display: flex; align-items: center; text-decoration: none; color: var(--white); font-family: 'Montserrat', sans-serif; font-size: 20px; font-weight: 900; }
         .nav-logo-text { font-family: 'Montserrat', sans-serif; font-size: 24px; font-weight: 900; color: var(--white); text-transform: lowercase; }
         .nav-logo-text .accent { color: var(--red); }
         .nav-links { display: flex; gap: 36px; list-style: none; }
@@ -220,36 +218,20 @@ export default function ViralishHomepage({ name = "Kriszy Garcia" }: { name?: st
         .mobile-close { position: absolute; top: 24px; right: 30px; font-size: 32px; color: var(--white); cursor: pointer; background: none; border: none; }
 
         /* ── HERO ── */
-        .hero {
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-          justify-content: flex-start;
-          padding-top: 110px;
-          text-align: center;
-          position: relative;
-          background: #0a0a0a;
-          /* NO overflow:hidden — cards need to be visible above */
-        }
+        .hero { display: flex; flex-direction: column; align-items: center; justify-content: flex-start; padding-top: 110px; text-align: center; position: relative; background: #0a0a0a; }
         .hero-bg {
           position: absolute; inset: 0; background-color: #1a1210;
           background-image: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.75)),
             url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='800' height='600'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='800' height='600' filter='url(%23n)' opacity='0.15'/%3E%3C/svg%3E");
           background-size: cover; background-position: center; z-index: 0;
         }
-        .hero-bg::before {
-          content: ''; position: absolute; inset: 0;
-          background: linear-gradient(135deg, rgba(255,255,255,0.04) 0%, transparent 40%), linear-gradient(225deg, rgba(255,255,255,0.04) 0%, transparent 40%);
-          z-index: 1;
-        }
-        .hero-content { position: relative; z-index: 2; display: flex; flex-direction: column; align-items: center; width: 100%; padding-bottom: 0; }
+        .hero-bg::before { content: ''; position: absolute; inset: 0; background: linear-gradient(135deg, rgba(255,255,255,0.04) 0%, transparent 40%), linear-gradient(225deg, rgba(255,255,255,0.04) 0%, transparent 40%); z-index: 1; }
+        .hero-content { position: relative; z-index: 2; display: flex; flex-direction: column; align-items: center; width: 100%; }
 
         .hero-badge { display: inline-flex; align-items: center; gap: 8px; background: rgba(30,30,30,0.85); border: 1px solid rgba(255,255,255,0.12); border-radius: 100px; padding: 8px 20px; font-size: 13px; font-weight: 600; color: rgba(255,255,255,0.85); margin-bottom: 28px; backdrop-filter: blur(8px); }
         .hero-badge-dot { width: 10px; height: 10px; background: var(--red); border-radius: 50%; flex-shrink: 0; }
         .hero-badge strong { color: var(--white); font-weight: 800; }
-
         .hero-title { font-family: 'Barlow Condensed', sans-serif; font-weight: 900; font-size: clamp(64px, 11vw, 148px); line-height: 0.92; letter-spacing: -1px; text-transform: uppercase; color: var(--white); text-shadow: 0 2px 20px rgba(0,0,0,0.4); }
-
         .hero-cursive-row { width: 100%; max-width: 900px; display: flex; justify-content: flex-end; padding-right: 24px; margin-top: 8px; margin-bottom: 40px; }
         .hero-cursive { font-family: 'Dancing Script', cursive; font-size: clamp(22px, 3vw, 38px); color: var(--white); display: flex; align-items: center; gap: 8px; }
         .hero-cursive-arrow { display: inline-block; margin-right: 4px; opacity: 0.9; }
@@ -264,46 +246,14 @@ export default function ViralishHomepage({ name = "Kriszy Garcia" }: { name?: st
         .btn-hero-dark-main { font-size: 17px; font-weight: 800; letter-spacing: 0.5px; line-height: 1.2; }
         .btn-hero-dark-sub { font-size: 11px; font-weight: 500; opacity: 0.65; margin-top: 3px; }
 
-        /* ── HERO REELS — arch layout ── */
-        .hero-reels-wrap {
-          width: 100%;
-          position: relative;
-          z-index: 2;
-          overflow: visible;
-        }
-        .hero-reels-annotation {
-          position: absolute;
-          left: calc(20% + 8px);
-          top: 8px;
-          display: flex; flex-direction: column; align-items: flex-start;
-          z-index: 10; pointer-events: none;
-        }
+        /* ── HERO REELS ── */
+        .hero-reels-wrap { width: 100%; position: relative; z-index: 2; overflow: visible; }
+        .hero-reels-annotation { position: absolute; left: calc(20% + 8px); top: 8px; display: flex; flex-direction: column; align-items: flex-start; z-index: 10; pointer-events: none; }
         .hero-reels-annotation-text { font-family: 'Dancing Script', cursive; font-size: 20px; color: var(--white); opacity: 0.95; margin-bottom: 2px; }
-
-        /* Key: align-items: flex-end so all cards bottom-align,
-           then marginBottom pushes individual cards UP */
-        .hero-reels-scroll {
-          display: flex;
-          gap: 10px;
-          align-items: flex-end;
-          width: 100%;
-          overflow: visible;
-          padding: 0;
-        }
-
-        .reel-card {
-          flex: 1;
-          min-width: 0;
-          aspect-ratio: 9/16;
-          position: relative;
-          border-radius: 18px;
-          overflow: hidden;
-          background: #111;
-          transition: transform 0.25s ease, box-shadow 0.25s ease;
-        }
+        .hero-reels-scroll { display: flex; gap: 10px; align-items: flex-end; width: 100%; overflow: visible; padding: 0; }
+        .reel-card { flex: 1; min-width: 0; aspect-ratio: 9/16; position: relative; border-radius: 18px; overflow: hidden; background: #111; transition: transform 0.25s ease, box-shadow 0.25s ease; }
         .reel-card:hover { transform: translateY(-6px) scale(1.02); box-shadow: 0 20px 60px rgba(0,0,0,0.6); z-index: 5; }
         .reel-card--center { z-index: 3; box-shadow: 0 24px 80px rgba(0,0,0,0.7); border-radius: 18px; }
-        .reel-card--center:hover { transform: translateY(-6px) scale(1.02); }
         .reel-card-overlay { position: absolute; inset: 0; background: rgba(0,0,0,0); display: flex; align-items: center; justify-content: center; transition: background 0.25s ease; z-index: 3; }
         .reel-card:hover .reel-card-overlay { background: rgba(0,0,0,0.35); }
         .reel-play-btn { width: 56px; height: 56px; background: rgba(255,255,255,0.92); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 20px; color: #111; opacity: 0; transform: scale(0.7); transition: opacity 0.25s ease, transform 0.25s ease; padding-left: 4px; }
@@ -346,7 +296,6 @@ export default function ViralishHomepage({ name = "Kriszy Garcia" }: { name?: st
         .services-subtitle { font-size: 16px; color: rgba(255,255,255,0.65); font-weight: 400; line-height: 1.5; }
         .btn-services-cta { background: var(--red); color: var(--white); font-size: 14px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; padding: 18px 48px; border: none; cursor: pointer; text-decoration: none; transition: all 0.25s; white-space: nowrap; flex-shrink: 0; }
         .btn-services-cta:hover { background: #ff1a24; transform: translateY(-2px); }
-
         .services-cards { max-width: 1300px; margin: 0 auto; padding: 0 60px 100px; display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
         .service-video-card { position: relative; border-radius: 14px; overflow: hidden; aspect-ratio: 9/11; background: #111; cursor: pointer; }
         .service-video-card:hover .service-video-overlay { background: linear-gradient(to bottom, rgba(0,0,0,0) 20%, rgba(0,0,0,0.92) 65%, rgba(0,0,0,0.97) 100%); }
@@ -467,26 +416,18 @@ export default function ViralishHomepage({ name = "Kriszy Garcia" }: { name?: st
 
       {/* ── NAVBAR ── */}
       <nav className="navbar">
-        <a href="#" className="nav-logo">
-          {/* <span className="nav-logo-text">viral<span className="accent">i</span>sh</span> */}
-        {name}
-        </a>
-        {/* <ul className="nav-links">
-          <li><a href="#" className="active">Home</a></li>
-          <li><a href="#">Brands</a></li>
-          <li><a href="#">Speaking</a></li>
-        </ul> */}
-        {/* <button className="hamburger" onClick={() => setMenuOpen(true)} aria-label="Menu">
+        <a href="#" className="nav-logo">{name}</a>
+        <button className="hamburger" onClick={() => setMenuOpen(true)} aria-label="Menu">
           <span /><span /><span />
-        </button> */}
+        </button>
       </nav>
 
       {/* ── MOBILE MENU ── */}
       <div className={`mobile-menu${menuOpen ? " open" : ""}`}>
         <button className="mobile-close" onClick={() => setMenuOpen(false)}>✕</button>
         <a href="#" onClick={() => setMenuOpen(false)}>Home</a>
-        <a href="#" onClick={() => setMenuOpen(false)}>Brands</a>
-        <a href="#" onClick={() => setMenuOpen(false)}>Speaking</a>
+        <a href="#" onClick={() => setMenuOpen(false)}>Work</a>
+        <a href="#" onClick={() => setMenuOpen(false)}>Contact</a>
       </div>
 
       {/* ── HERO ── */}
@@ -495,10 +436,10 @@ export default function ViralishHomepage({ name = "Kriszy Garcia" }: { name?: st
         <div className="hero-content">
           <div className="hero-badge">
             <span className="hero-badge-dot" />
-            Viralish Is The Leader In <strong>&nbsp;Viral Videos</strong>
+            Professional <strong>&nbsp;Video Editor</strong>
           </div>
           <h1 className="hero-title">
-            WE KNOW HOW TO<br />GET ATTENTION
+            I KNOW HOW TO<br />GET ATTENTION
           </h1>
           <div className="hero-cursive-row">
             <span className="hero-cursive">
@@ -511,16 +452,16 @@ export default function ViralishHomepage({ name = "Kriszy Garcia" }: { name?: st
           </div>
           <div className="hero-ctas">
             <a href="#services" className="btn-hero-red">
-              <span className="btn-hero-red-main">Work With Us</span>
+              <span className="btn-hero-red-main">Work With Me</span>
               <span className="btn-hero-red-sub">For Entrepreneurs or Big Brands</span>
             </a>
             <a href="#" className="btn-hero-dark">
-              <span className="btn-hero-dark-main">Book Adley To Speak</span>
-              <span className="btn-hero-dark-sub">For Events</span>
+              <span className="btn-hero-dark-main">Book A Meeting</span>
+              <span className="btn-hero-dark-sub">With Me</span>
             </a>
           </div>
 
-          {/* Reel cards — arch via marginBottom */}
+          {/* ── REEL CARDS ── */}
           <div className="hero-reels-wrap">
             <div className="hero-reels-annotation">
               <span className="hero-reels-annotation-text">Click To View</span>
@@ -548,24 +489,24 @@ export default function ViralishHomepage({ name = "Kriszy Garcia" }: { name?: st
       {activeReel && <ReelModal reel={activeReel} onClose={() => setActiveReel(null)} />}
 
       {/* ── LOGO STRIP ── */}
-      <div className="logo-strip">
+      {/* <div className="logo-strip">
         <div className="logo-track">
           {["BUSINESS INSIDER","CBS","ENTREPRENEUR","YAHOO FINANCE","LAND ROVER","RED BULL","HP","AIRHEADS","RAISING CANE'S",
-            "BUSINESS INSIDER","CBS","ENTREPRENEUR","YAHOO FINANCE","LAND ROVER","RED BULL","HP","AIRHEADS","RAISING CANE'S"].map((name, i) => (
+            "BUSINESS INSIDER","CBS","ENTREPRENEUR","YAHOO FINANCE","LAND ROVER","RED BULL","HP","AIRHEADS","RAISING CANE'S"].map((brand, i) => (
             <span key={i} style={{ display: "flex", alignItems: "center", gap: 32 }}>
-              <span className="logo-item">{name}</span>
+              <span className="logo-item">{brand}</span>
               <span className="logo-dot" />
             </span>
           ))}
         </div>
-      </div>
+      </div> */}
 
       {/* ── SERVICES ── */}
       <section id="services" style={{ background: "var(--darkest)" }}>
         <div className="services-header">
           <div className="services-header-left">
             <h2 className="services-main-title">
-              WE HELP ENTREPRENEURS &amp; BIG BRANDS<br />
+              I HELP ENTREPRENEURS &amp; BIG BRANDS<br />
               CREATE{" "}
               <span className="services-viral-word">
                 <svg className="services-viral-oval" viewBox="0 0 120 52" fill="none" preserveAspectRatio="none">
@@ -575,58 +516,54 @@ export default function ViralishHomepage({ name = "Kriszy Garcia" }: { name?: st
               </span>
               {" "}CONTENT
             </h2>
-            <p className="services-subtitle">Work With Us To Harness The Power Of Viral Videos</p>
+            <p className="services-subtitle">Work With Me To Harness The Power Of Viral Videos</p>
           </div>
-          <a href="#" className="btn-services-cta">Work With Us</a>
+          <a href="#" className="btn-services-cta">Work With Me</a>
         </div>
         <div className="services-cards">
+          {/* Service Card 1 — replace videoSrc with your R2 URL */}
           <div className="service-video-card"
-            onClick={() => setActiveReel({ vimeoId: "1012531485", 
-            // previewSrc: "/videos/reel1-preview.mp4", 
-            views: "102M+", likes: "540k+", comments: "6,400+" })}>
+            onClick={() => setActiveReel({
+              previewSrc: `${R2}/service1-preview.mp4`,
+              videoSrc: `${R2}/service1-full.MP4`,
+              views: "102M+", likes: "540k+", comments: "6,400+"
+            })}>
             <div className="service-video-bg">
-              {/* <video src="/videos/reel1-preview.mp4" autoPlay muted loop playsInline style={{ width: "100%", height: "100%", objectFit: "cover", position: "absolute", top: 0, left: 0 }} /> */}
-              
-<video
-  src="https://pub-aba1844bd21f4ec0b72735c6f51f94c9.r2.dev/portfolio/uploads/6_v1%20(1080p).mp4"
-  autoPlay muted loop playsInline
-  style={{ width: "100%", height: "100%", objectFit: "cover", position: "absolute", top: 0, left: 0 }}
-/>
-
-
-
-<div className="service-video-overlay" />
+              <video
+                src={`${R2}/service1-preview.mp4`}
+                autoPlay muted loop playsInline
+                style={{ width: "100%", height: "100%", objectFit: "cover", position: "absolute", top: 0, left: 0 }}
+              />
+              <div className="service-video-overlay" />
               <div className="service-card-play"><div className="reel-play-btn">▶</div></div>
             </div>
             <div className="service-video-content">
               <h3 className="service-video-title">FOR ENTREPRENEURS</h3>
-              <p className="service-video-desc">We help your brand get more attention so you can get more sales.</p>
-              <a href="#" className="service-video-desc" onClick={e => e.stopPropagation()}>
-                {/* Join The Viralish Community */}
-                </a>
+              <p className="service-video-desc">I help your brand get more attention so you can get more sales.</p>
+              <a href="#" className="btn-service-video" onClick={e => e.stopPropagation()}>Book Meeting With Me</a>
             </div>
           </div>
+
+          {/* Service Card 2 — replace videoSrc with your R2 URL */}
           <div className="service-video-card"
-            onClick={() => setActiveReel({ vimeoId: "1012531485", 
-            // previewSrc: "/videos/reel1-preview.mp4", 
-            views: "85M+", likes: "1.2M+", comments: "18K+" })}>
+            onClick={() => setActiveReel({
+              previewSrc: `${R2}/service2-preview.mp4`,
+              videoSrc: `${R2}/service2-full.MP4`,
+              views: "85M+", likes: "1.2M+", comments: "18K+"
+            })}>
             <div className="service-video-bg">
-              {/* <video src="/videos/reel1-preview.mp4" autoPlay muted loop playsInline style={{ width: "100%", height: "100%", objectFit: "cover", position: "absolute", top: 0, left: 0 }} /> */}
-              
-            <video
-  src="https://pub-aba1844bd21f4ec0b72735c6f51f94c9.r2.dev/portfolio/uploads/6_v1%20(1080p).mp4"
-  autoPlay muted loop playsInline
-  style={{ width: "100%", height: "100%", objectFit: "cover", position: "absolute", top: 0, left: 0 }}
-/>
+              <video
+                src={`${R2}/service2-preview.mp4`}
+                autoPlay muted loop playsInline
+                style={{ width: "100%", height: "100%", objectFit: "cover", position: "absolute", top: 0, left: 0 }}
+              />
               <div className="service-video-overlay" />
               <div className="service-card-play"><div className="reel-play-btn">▶</div></div>
             </div>
             <div className="service-video-content">
               <h3 className="service-video-title">FOR BIG BRANDS</h3>
-              <p className="service-video-desc">We integrate <strong>Big Brands</strong> into cultural relevance at scale.</p>
-              <a href="#" className="service-video-desc" onClick={e => e.stopPropagation()}>
-                {/* Work With Viralish */}
-              </a>
+              <p className="service-video-desc">I integrate <strong>Big Brands</strong> into cultural relevance at scale.</p>
+              <a href="#" className="btn-service-video" onClick={e => e.stopPropagation()}>Work With Me</a>
             </div>
           </div>
         </div>
