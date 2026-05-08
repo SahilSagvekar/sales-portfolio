@@ -9,5 +9,4 @@ export const profiles: Record<string, Profile> = {
   jizanmark:   { slug: "jizanmark",   name: "Jizanmark Hernaez"    },
   maryjoy:   { slug: "maryjoy",   name: "Mary Joy Ramirez"    },
   hanelle:   { slug: "hanelle",   name: "Hanelle Corullo"    },
-  // add more people here
 }

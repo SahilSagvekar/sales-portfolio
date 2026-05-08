@@ -3,11 +3,11 @@ import { NextRequest, NextResponse } from "next/server";
 export function middleware(req: NextRequest) {
   const hostname = req.headers.get("host") || "";
 
-  if (!hostname.endsWith(".yourdomain.com")) {
+  if (!hostname.endsWith(".e8productions.com")) {
     return NextResponse.next();
   }
 
-  const slug = hostname.replace(".yourdomain.com", "");
+  const slug = hostname.replace(".e8productions.com", "");
   if (slug === "www") return NextResponse.next();
 
   const url = req.nextUrl.clone();
