@@ -506,7 +506,8 @@ export default function ViralishHomepage({ name = "Kriszy Garcia" }: { name?: st
         <div className="services-header">
           <div className="services-header-left">
             <h2 className="services-main-title">
-              I HELP ENTREPRENEURS &amp; BIG BRANDS<br />
+              I HELP ENTREPRENEURS <br /> 
+              &amp; BIG BRANDS<br />
               CREATE{" "}
               <span className="services-viral-word">
                 <svg className="services-viral-oval" viewBox="0 0 120 52" fill="none" preserveAspectRatio="none">
