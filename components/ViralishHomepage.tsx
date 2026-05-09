@@ -235,10 +235,10 @@ export default function ViralishHomepage({ name = "Kriszy Garcia" }: { name?: st
         .hero-badge { display: inline-flex; align-items: center; gap: 8px; background: rgba(30,30,30,0.85); border: 1px solid rgba(255,255,255,0.12); border-radius: 100px; padding: 8px 20px; font-size: 13px; font-weight: 600; color: rgba(255,255,255,0.85); margin-bottom: 28px; backdrop-filter: blur(8px); }
         .hero-badge-dot { width: 10px; height: 10px; background: var(--red); border-radius: 50%; flex-shrink: 0; }
         .hero-badge strong { color: var(--white); font-weight: 800; }
-        .hero-title { font-family: 'Barlow Condensed', sans-serif; font-weight: 900; font-size: clamp(64px, 11vw, 148px); line-height: 0.92; letter-spacing: -1px; text-transform: uppercase; color: var(--white); text-shadow: 0 2px 20px rgba(0,0,0,0.4); }
+        .hero-title { font-family: 'Barlow Condensed', sans-serif; font-weight: 900; font-size: clamp(48px, 7.5vw, 108px); line-height: 0.92; letter-spacing: -1px; text-transform: uppercase; color: var(--white); text-shadow: 0 2px 20px rgba(0,0,0,0.4); }
         .hero-cursive-row { width: 100%; max-width: 900px; display: flex; justify-content: flex-end; padding-right: 24px; margin-top: 8px; margin-bottom: 40px; }
-        .hero-cursive { font-family: 'Dancing Script', cursive; font-size: clamp(22px, 3vw, 38px); color: var(--white); display: flex; align-items: center; gap: 8px; }
-        .hero-cursive-arrow { display: inline-block; margin-right: 4px; opacity: 0.9; }
+        .hero-cursive { font-family: 'Dancing Script', cursive; font-size: clamp(22px, 3vw, 38px); color: var(--white); display: flex; align-items: center; gap: 12px; }
+        .hero-cursive-arrow { display: block; opacity: 0.9; }
 
         .hero-ctas { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; margin-bottom: 56px; }
         .btn-hero-red { background: var(--red); color: var(--white); padding: 0 40px; height: 72px; display: flex; flex-direction: column; align-items: center; justify-content: center; border: none; cursor: pointer; text-decoration: none; transition: all 0.25s; border-radius: 4px; min-width: 260px; }
@@ -252,7 +252,7 @@ export default function ViralishHomepage({ name = "Kriszy Garcia" }: { name?: st
 
         /* ── HERO REELS ── */
         .hero-reels-wrap { width: 100%; position: relative; z-index: 2; overflow: visible; }
-        .hero-reels-annotation { position: absolute; left: calc(20% + 8px); top: 8px; display: flex; flex-direction: column; align-items: flex-start; z-index: 10; pointer-events: none; }
+        .hero-reels-annotation { position: absolute; left: calc(20% + 8px); top: -64px; display: flex; flex-direction: column; align-items: flex-start; z-index: 10; pointer-events: none; }
         .hero-reels-annotation-text { font-family: 'Dancing Script', cursive; font-size: 20px; color: var(--white); opacity: 0.95; margin-bottom: 2px; }
         .hero-reels-scroll { display: flex; gap: 10px; align-items: flex-end; width: 100%; overflow: visible; padding: 0; }
         .reel-card { flex: 1; min-width: 0; aspect-ratio: 9/16; position: relative; border-radius: 18px; overflow: hidden; background: #111; transition: transform 0.25s ease, box-shadow 0.25s ease; }
@@ -433,7 +433,11 @@ export default function ViralishHomepage({ name = "Kriszy Garcia" }: { name?: st
 
       {/* ── NAVBAR ── */}
       <nav className="navbar">
-        <a href="#" className="nav-logo">{name}</a>
+        <a href="#" className="nav-logo">
+          <span style={{color: "var(--red)"}}>{name.split(" ")[0]}</span>
+          {" "}
+          <span style={{color: "var(--white)"}}>{name.split(" ").slice(1).join(" ")}</span>
+        </a>
         <button className="hamburger" onClick={() => setMenuOpen(true)} aria-label="Menu">
           <span /><span /><span />
         </button>
@@ -460,9 +464,9 @@ export default function ViralishHomepage({ name = "Kriszy Garcia" }: { name?: st
           </h1>
           <div className="hero-cursive-row">
             <span className="hero-cursive">
-              <svg className="hero-cursive-arrow" width="32" height="28" viewBox="0 0 32 28" fill="none">
-                <path d="M2 4C6 2 14 6 12 14C10 20 4 22 8 26" stroke="white" strokeWidth="1.8" strokeLinecap="round" fill="none"/>
-                <path d="M6 24L8 27L11 24" stroke="white" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" fill="none"/>
+              <svg className="hero-cursive-arrow" width="36" height="32" viewBox="0 0 36 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M4 6 C8 2, 18 4, 20 12 C22 19, 14 24, 18 29" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" fill="none"/>
+                <path d="M14 27 L18 30 L20 25" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" fill="none"/>
               </svg>
               And A Lot Of It...
             </span>
@@ -482,9 +486,9 @@ export default function ViralishHomepage({ name = "Kriszy Garcia" }: { name?: st
           <div className="hero-reels-wrap">
             <div className="hero-reels-annotation">
               <span className="hero-reels-annotation-text">Click To View</span>
-              <svg width="44" height="40" viewBox="0 0 44 40" fill="none">
-                <path d="M8 4C14 2 22 10 18 22C15 30 4 32 8 38" stroke="white" strokeWidth="1.8" strokeLinecap="round" fill="none" opacity="0.85"/>
-                <path d="M5 34L8 39L12 34" stroke="white" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" fill="none" opacity="0.85"/>
+              <svg width="44" height="40" viewBox="0 0 44 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M36 4 C30 2, 20 8, 22 18 C24 26, 34 28, 30 36" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" fill="none" opacity="0.85"/>
+                <path d="M26 33 L30 37 L34 33" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" fill="none" opacity="0.85"/>
               </svg>
             </div>
             <div className="hero-reels-scroll">
