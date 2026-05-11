@@ -11,4 +11,5 @@ export const profiles: Record<string, Profile> = {
   hanelle:   { slug: "hanelle",   name: "Hanelle Corullo"    },
   nathaniel: { slug: "nathaniel", name: "Nathaniel Orzales"   },
   lencon: { slug: "lencon", name: "Lencon Empasis"   },
+  rommel: { slug: "rommel", name: "Rommel Feniza"   },
 }
