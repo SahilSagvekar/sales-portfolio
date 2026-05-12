@@ -18,4 +18,5 @@ export const profiles: Record<string, Profile> = {
   johnson:   { slug: "johnson",   name: "Johnson Prado"     },
   kate:      { slug: "kate",      name: "Kate Collin Parcon" },
   edgar:     { slug: "edgar",     name: "Edgar Siman" },
+  kirstine:  { slug: "kirstine",  name: "Kirstine Briones" },
 };
