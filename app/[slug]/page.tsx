@@ -6,9 +6,9 @@ export default async function ProfilePage({ params }: { params: Promise<{ slug: 
   const { slug } = await params;
   const profile = profiles[slug];
   if (!profile) return notFound();
-  return <ViralishHomepage name={profile.name} />;
+  return <ViralishHomepage name={profile.name} photo={profile.photo} />;
 }
 
 export async function generateStaticParams() {
   return Object.keys(profiles).map(slug => ({ slug }));
-}
+} 

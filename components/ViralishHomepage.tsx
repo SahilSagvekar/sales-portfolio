@@ -95,7 +95,7 @@ function ReelModal({ reel, onClose }: { reel: ReelData; onClose: () => void }) {
             controls
             autoPlay
             controlsList="nodownload"
-            style={{ width: "100%", height: "100%", position: "absolute", top: 0, left: 0, objectFit: "cover", borderRadius: "16px 16px 0 0" }}
+            style={{ width: "100%", height: "100%", position: "absolute", top: 0, left: 0, objectFit: "contain", borderRadius: "16px 16px 0 0" }}
           />
         </div>
         {/* <div className="reel-modal-stats">
@@ -155,7 +155,7 @@ function TestimonialCard({ name, videoSrc }: { name: string; videoSrc: string })
 const R2 = "https://pub-aba1844bd21f4ec0b72735c6f51f94c9.r2.dev/portfolio/uploads";
 
 // ─── Main Page ────────────────────────────────────────────────────────────────
-export default function ViralishHomepage({ name = "Kriszy Garcia" }: { name?: string }) {
+export default function ViralishHomepage({ name = "Kriszy Garcia", photo }: { name?: string; photo?: string }) {
   const [menuOpen, setMenuOpen] = useState(false);
   const [activeReel, setActiveReel] = useState<ReelData | null>(null);
   const statsRef = useRef<HTMLDivElement>(null);
@@ -206,7 +206,7 @@ export default function ViralishHomepage({ name = "Kriszy Garcia" }: { name?: st
         body { font-family: 'Montserrat', sans-serif; background: var(--darkest); color: var(--white); overflow-x: hidden; }
 
         /* ── NAVBAR ── */
-        .navbar { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; align-items: center; justify-content: space-between; padding: 18px 48px; background: transparent; }
+        .navbar { position: absolute; top: 0; left: 0; right: 0; z-index: 100; display: flex; align-items: center; justify-content: space-between; padding: 18px 48px; background: transparent; }
         .nav-logo { display: flex; align-items: center; text-decoration: none; color: var(--white); font-family: 'Montserrat', sans-serif; font-size: 20px; font-weight: 900; }
         .nav-logo-text { font-family: 'Montserrat', sans-serif; font-size: 24px; font-weight: 900; color: var(--white); text-transform: lowercase; }
         .nav-logo-text .accent { color: var(--red); }
@@ -281,7 +281,7 @@ export default function ViralishHomepage({ name = "Kriszy Garcia" }: { name?: st
         .reel-modal-video-wrap {
   position: relative;
   width: 100%;
-  aspect-ratio: 16/9;   /* ← horizontal */
+  aspect-ratio: 16/9;
   background: #000;
 }
         .reel-modal-stats { display: grid; grid-template-columns: repeat(3, 1fr); padding: 20px 0; border-top: 1px solid rgba(255,255,255,0.08); background: #111; }
@@ -433,15 +433,32 @@ export default function ViralishHomepage({ name = "Kriszy Garcia" }: { name?: st
 
       {/* ── NAVBAR ── */}
       <nav className="navbar">
-        <a href="#" className="nav-logo">
-          <span style={{color: "var(--red)"}}>{name.split(" ")[0]}</span>
-          {" "}
-          <span style={{color: "var(--white)"}}>{name.split(" ").slice(1).join(" ")}</span>
-        </a>
-        <button className="hamburger" onClick={() => setMenuOpen(true)} aria-label="Menu">
-          <span /><span /><span />
-        </button>
-      </nav>
+  <a href="#" className="nav-logo">
+    <div style={{ display: "flex", flexDirection: "column", alignItems: "flex-start", gap: 40 }}>
+      <div>
+        <span style={{ color: "var(--red)" }}>{name.split(" ")[0]}</span>
+        {" "}
+        <span style={{ color: "var(--white)" }}>{name.split(" ").slice(1).join(" ")}</span>
+      </div>
+      {photo && (
+        <img
+          src={photo}
+          alt={name}
+          style={{
+  width: 180,
+  height: 180,
+  borderRadius: 8,
+  objectFit: "cover",
+  border: "2px solid var(--red)",
+}}
+        />
+      )}
+    </div>
+  </a>
+  <button className="hamburger" onClick={() => setMenuOpen(true)} aria-label="Menu">
+    <span /><span /><span />
+  </button>
+</nav>
 
       {/* ── MOBILE MENU ── */}
       <div className={`mobile-menu${menuOpen ? " open" : ""}`}>

@@ -1,5 +1,7 @@
 import ViralishHomepage from "@/components/ViralishHomepage";
+import { profiles } from "@/lib/profiles";
 
 export default function Home() {
-  return <ViralishHomepage name="Kriszy Garcia" />;
+  const profile = profiles["kriszy"];
+  return <ViralishHomepage name={profile.name} photo={profile.photo} />;
 }
