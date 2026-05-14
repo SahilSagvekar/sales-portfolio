@@ -19,4 +19,7 @@ export const profiles: Record<string, Profile> = {
   kate:      { slug: "kate",      name: "Kate Collin Parcon" },
   edgar:     { slug: "edgar",     name: "Edgar Siman" },
   kirstine:  { slug: "kirstine",  name: "Kirstine Briones" },
+  olive:     { slug: "olive",     name: "Olive De Guzman" },
+  michael:   { slug: "michael",   name: "Michael Macatangay" },
+  alison:    { slug: "alison",    name: "Alison Gail Diamante" },
 };
